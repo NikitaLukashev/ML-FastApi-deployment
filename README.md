@@ -1,3 +1,11 @@
+# Context
+Our model predict the time to sell a product on Label Emmaüs marketplace.
+It's a standard classification problem with 3 classes.
+We will use log loss metric during train, and predict a probability for each class during a prediction.
+
+
+
+
 # Product deployment
 clone repository
 ```shellscript
