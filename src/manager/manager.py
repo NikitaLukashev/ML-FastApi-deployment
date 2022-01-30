@@ -33,9 +33,11 @@ class Manager:
             self.algorithm = self.train()
             self.algorithm_id = self.db_session.query(Snapshot.id).first()
 
-        self.logger.info('Training raw ml model')
+        self.logger.info('Training raw ml model on full dataset')
 
     def predict(self, payload):
+        self.logger.info('Predicting on new resource')
+
         created_at = datetime.now()
 
         couleur_mapper = self.db_session.query(Snapshot.couleur_mapper). \
@@ -68,6 +70,8 @@ class Manager:
         return res_json
 
     def train(self):
+        self.logger.info('Training model on full dataset')
+
         query = '''select * from catalog'''
         df = pd.read_sql_query(query, self.engine)
         x, y, categorical_mapper, description_produit_tfidf, nom_produit_tfidf = Processor.process_train(df)
@@ -92,6 +96,7 @@ class Manager:
         return {'id': snapshot.id, 'created_at': snapshot.created_at}
 
     def get_state(self):
+        self.logger.info('Retrieving current model id')
         return f'algorythm version {self.algorithm_id}'
 
     def teardown(self, exception: Exception = None):

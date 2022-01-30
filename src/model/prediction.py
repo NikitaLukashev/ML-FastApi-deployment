@@ -2,7 +2,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import JSONB, TIMESTAMP
 from sqlalchemy.inspection import inspect
 
-from src.common.db_service import Base
+from common.db_service import Base
 
 
 class Prediction(Base):

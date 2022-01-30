@@ -1,8 +1,7 @@
 import sqlalchemy as sa
-from sqlalchemy.dialects.postgresql import TIMESTAMP
 from sqlalchemy.inspection import inspect
 
-from src.common.db_service import Base
+from common.db_service import Base
 
 
 class Catalog(Base):

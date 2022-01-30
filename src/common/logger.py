@@ -1,6 +1,7 @@
 import logging
 from datetime import datetime
 
+
 class LogFormatter(logging.Formatter):
 
     def __init__(self, attr, **kwargs):
