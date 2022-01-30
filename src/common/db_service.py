@@ -8,8 +8,8 @@ Base = declarative_base()
 class DBService:
 
     def __init__(self, db_uri):
-        self._engine = sa.create_engine(db_uri, echo=False)
-        self._sessionmaker_registry = sessionmaker(autocommit=False, autoflush=True, bind=self._engine)
+        self.engine = sa.create_engine(db_uri, echo=False)
+        self._sessionmaker_registry = sessionmaker(autocommit=False, autoflush=True, bind=self.engine)
         self._db_session_registry = scoped_session(self._sessionmaker_registry)
 
     @property

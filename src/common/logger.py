@@ -1,9 +1,5 @@
-import json
 import logging
 from datetime import datetime
-
-from .config import CONFIG
-
 
 class LogFormatter(logging.Formatter):
 
@@ -30,11 +26,8 @@ class LogFormatter(logging.Formatter):
         if getattr(record, 'exc_info', None) is not None:
             _record['exc_info'] = self.formatException(record.exc_info)
 
-        if CONFIG['PYTHON_ENV'] == 'production':
-            return json.dumps(_record)
-        else:
-            _record['message'] = _record.get('exc_info', _record['message'])
-            return '{timestamp} - {level: <8} - {name} - "{message}"'.format(**_record)
+        _record['message'] = _record.get('exc_info', _record['message'])
+        return '{timestamp} - {level: <8} - {name} - "{message}"'.format(**_record)
 
 
 def logging_setup(name):
