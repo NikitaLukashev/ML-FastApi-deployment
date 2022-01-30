@@ -26,7 +26,6 @@ def upgrade():
         sa.Column('longueur_image', sa.Float),
         sa.Column('largeur_image', sa.Float),
         sa.Column('description_produit', sa.String),
-        sa.Column('taille', sa.String),
         sa.Column('annee', sa.Float),
         sa.Column('couleur', sa.String),
         sa.Column('prix', sa.Float),

@@ -7,7 +7,7 @@ Create Date: 2022-01-29 17:10:45.432988
 """
 from alembic import op
 import sqlalchemy as sa
-from sqlalchemy.dialects.postgresql import TIMESTAMP, JSONB
+from sqlalchemy.dialects.postgresql import TIMESTAMP, JSONB, BYTEA
 
 
 # revision identifiers, used by Alembic.
@@ -23,9 +23,11 @@ def upgrade():
         'snapshots',
         sa.Column('id', sa.Integer, primary_key=True, autoincrement=True),
         sa.Column('created_at', TIMESTAMP),
-        sa.Column('model', JSONB),
+        sa.Column('model', BYTEA),
         sa.Column('couleur_mapper', JSONB),
-        sa.Column('categorie_mapper', JSONB)
+        sa.Column('categorie_mapper', JSONB),
+        sa.Column('description_produit_tfidf', BYTEA),
+        sa.Column('nom_produit_tfidf', BYTEA)
     )
 
 def downgrade():

@@ -23,7 +23,9 @@ def upgrade():
         sa.Column('id', sa.Integer, primary_key=True, autoincrement=True),
         sa.Column('created_at', TIMESTAMP),
         sa.Column('input', JSONB),
-        sa.Column('prediction', JSONB)
+        sa.Column('prediction', JSONB),
+        sa.Column('model_id', sa.Integer)
+
     )
 
 def downgrade():
