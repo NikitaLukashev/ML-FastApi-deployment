@@ -22,5 +22,5 @@ class DBService:
 
     def reset_db(self):
         self._sessionmaker_registry.close_all()
-        Base.metadata.drop_all(bind=self._engine)
-        Base.metadata.create_all(bind=self._engine)
+        Base.metadata.drop_all(bind=self.engine)
+        Base.metadata.create_all(bind=self.engine)
