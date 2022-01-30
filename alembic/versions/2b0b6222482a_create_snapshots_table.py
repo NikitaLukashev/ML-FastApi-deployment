@@ -23,7 +23,9 @@ def upgrade():
         'snapshots',
         sa.Column('id', sa.Integer, primary_key=True, autoincrement=True),
         sa.Column('created_at', TIMESTAMP),
-        sa.Column('model', JSONB)
+        sa.Column('model', JSONB),
+        sa.Column('couleur_mapper', JSONB),
+        sa.Column('categorie_mapper', JSONB)
     )
 
 def downgrade():
