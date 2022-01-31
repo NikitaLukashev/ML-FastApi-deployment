@@ -1,0 +1,32 @@
+version: '2.2'
+
+
+services:
+
+  database-postgres:
+    image: postgres:14.1
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER  -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+
+  allisone:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "5001:5001"
+    environment:
+      DATABASE:
+        ${DATABASE}
+
+    depends_on:
+      database-postgres:
+        condition: service_healthy

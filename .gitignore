@@ -3,3 +3,4 @@
 .pytest_cache
 /allisone
 *.pyc
+.idea/

@@ -1,0 +1,8 @@
+.pytest_cache
+.venv
+.env
+.gitignore
+*.iml
+.idea/
+*.pyc
+allisone/

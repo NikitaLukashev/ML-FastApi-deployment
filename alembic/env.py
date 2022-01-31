@@ -4,12 +4,8 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
-#todo set pythonpath
-#from common.config import CONFIG
+from common.config import CONFIG
 
-CONFIG = {
-    'DATABASE' : 'postgresql://localhost:5432/allisone'
-}
 uri = CONFIG['DATABASE']
 
 # this is the Alembic Config object, which provides
