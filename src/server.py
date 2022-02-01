@@ -23,6 +23,10 @@ class Server:
         self.logger.info(f'Starting server on port {port}...')
         self.flask.run(debug=True, port=port, host='0.0.0.0')
 
+    def test(self):
+        self.flask.config['TESTING'] = True
+        return self.flask.test_client()
+
     def train(self):
         resource = self.manager.train()
         self.logger.info(f'Training new model {resource["id"]} on full dataset the {resource["created_at"]}')
@@ -38,10 +42,6 @@ class Server:
         self.logger.info('Retrieving internal algorithm state')
         res = self.manager.get_state()
         return jsonify(res), 200
-
-    def test(self):
-        self.flask.config['TESTING'] = True
-        return self.flask.test_client()
 
     def error_handler(self, exception: Exception):
         self.logger.exception('')
