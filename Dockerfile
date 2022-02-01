@@ -1,4 +1,3 @@
-FROM ubuntu:18.04
 FROM python:3.9
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh

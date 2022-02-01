@@ -2,6 +2,7 @@ import sqlalchemy as sa
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 
+
 Base = declarative_base()
 
 
@@ -24,3 +25,6 @@ class DBService:
         self._sessionmaker_registry.close_all()
         Base.metadata.drop_all(bind=self.engine)
         Base.metadata.create_all(bind=self.engine)
+
+    def close_db(self):
+        self._sessionmaker_registry.close_all()

@@ -1,0 +1,27 @@
+version: '2.2'
+
+
+services:
+
+  database-postgres:
+    image: postgres:14.1
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: test
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test  -d test"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pytest:
+    build:
+      dockerfile: test.Dockerfile
+      context: .
+    environment:
+      DATABASE: postgresql://test:test@database-postgres/test
+
+    depends_on:
+      database-postgres:
+        condition: service_healthy
