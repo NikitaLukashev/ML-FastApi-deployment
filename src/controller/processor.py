@@ -16,13 +16,13 @@ class Processor:
         resource['categorie'] = resource['categorie'].map(categorie_map)
 
         tfidf = description_tfidf.transform(resource['description_produit'])
-        tfidf_cols = description_tfidf.get_feature_names()
+        tfidf_cols = description_tfidf.get_feature_names_out()
         tmp = pd.DataFrame(data=tfidf.todense(),
                            columns=['tfidf_' + 'description_produit' + '_' + i for i in tfidf_cols])
         df = pd.concat([resource, tmp], axis=1)
 
         tfidf = nom_tfidf.transform(resource['nom_produit'])
-        tfidf_cols = nom_tfidf.get_feature_names()
+        tfidf_cols = nom_tfidf.get_feature_names_out()
         tmp = pd.DataFrame(data=tfidf.todense(), columns=['tfidf_' + 'nom_produit' + '_' + i for i in tfidf_cols])
         df = pd.concat([df, tmp], axis=1)
 
@@ -41,7 +41,7 @@ class Processor:
         def get_tfidf_vectorizer(df, field, vectorizer):
             vec = vectorizer.fit(df[field])
             tfidf_ = vectorizer.fit_transform(df[field])
-            tfidf_cols = vectorizer.get_feature_names()
+            tfidf_cols = vectorizer.get_feature_names_out()
             temp = pd.DataFrame(data=tfidf_.todense(), columns=['tfidf_' + field + '_' + i for i in tfidf_cols])
             df = pd.concat([df, temp], axis=1)
             return df, vec

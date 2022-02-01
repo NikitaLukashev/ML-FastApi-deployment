@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import Type
 from sklearn.ensemble import RandomForestClassifier
 import pandas as pd
 import pickle
@@ -30,10 +29,9 @@ class Manager:
             self.algorithm_id = snapshot.id
             self.logger.info('Loading most recent trained ml model from db')
         else:
-            self.algorithm = self.train()
-            self.algorithm_id = self.db_session.query(Snapshot.id).first()
-
-        self.logger.info('Training raw ml model on full dataset')
+            self.train()
+            self.algorithm_id = self.db_session.query(Snapshot.id).first()[0]
+            self.logger.info('Training raw ml model on full dataset')
 
     def predict(self, payload):
         self.logger.info('Predicting on new resource')
