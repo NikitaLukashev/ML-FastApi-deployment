@@ -29,7 +29,7 @@ class Processor:
         df = df.drop(['description_produit', 'nom_produit'], axis=1)
 
         ###################################################################
-        # filling nan andtype casting
+        # filling nan and type casting
         ###################################################################
         for col in ['nb_images', 'longueur_image', 'largeur_image', 'annee', 'couleur',
                     'prix', 'categorie']:

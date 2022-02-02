@@ -19,6 +19,16 @@ We train a supervised RandomForestClassifier on the full dataset and save it int
 I don't create complexe feature, grid search, pamameter optimisation, as 
 the score is not important for this test.
 
+# Code description
+Our web app follow MVC pattern. 
+The folder src/model contains relational data model.
+The folder src/controller contains data processing operation during training and prediction.
+The folder src/common contains additional nice to have like a logger, db services, and config which loads
+environnement var and secret from .env file.
+
+The doc/ folder contains readme.md and a swagger.yml file for api description.
+
+The data/ folder contains initial train dataset, it's inserted into the db after first migration
 
 # Product testing
 Create .env file in allisone with similar content of the .env.example. 
@@ -65,3 +75,9 @@ There are 3 tables:
 You can bind ml model from snapshots table and prediction from predictions 
 table by foreign key model_id from predictions table and primary key id from 
 snapshots table. And so retrieve all prediction by model and start AB test.
+
+# To Improve
+ - Add a crossvalidation score for each model into the db
+ - Refactor dockerfile and docker compose to make build faster
+ - use pipenv and pyenv instead of pip
+ - add more test

@@ -1,0 +1,133 @@
+swagger: "2.0"
+info:
+  description: "This is a simple API to interact with a Machine Learning Algorithme. It can train an ML algorithm, predict with trained algorithm, retrieve algorithme state, retrain a new algorithm"
+  version: "1.0.0"
+  title: "ML API"
+  contact:
+    email: "nloukachev@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+tags:
+- name: "algorithm"
+  description: "Everything about your ml algorithm"
+
+- name: "train"
+  description: "Retrain an algorithm on data from db"
+
+- name: "predict"
+  description: "Predict probability score for each classes of the target"
+
+schemes:
+- "https"
+- "http"
+paths:
+  /state:
+    post:
+      tags:
+      - "algorithm"
+      summary: "Retrieve the current algorithm version"
+      description: "The state is the algorithm version. 
+                    If a retrain occurs, the algorithm state is increased by 1.
+                    It's needed to monitor which algorithm respond into
+                     production and compare result in A/B test with next or previous algorithm"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      responses:
+        "200":
+          description: "successful trained a new algorithm"
+          schema:
+            type: "string"
+            example:
+              "algorythm version 3"
+
+  /train:
+    post:
+      tags:
+      - "train"
+      summary: "Retrain an algorithm on full db"
+      description: "Update the current in memory algorithm by retraining it on full db.
+                    Algorithm state change. It's usefull for updating our algorithm with accumulation of 
+                    new data"
+      produces:
+      - "application/json"
+      parameters:
+      responses:
+        "200":
+          description: "successfully trained a new algorithm"
+          schema:
+            type: "array"
+            example: [
+              {
+                "created_at": "Tue, 01 Feb 2022 23:54:08 GMT",
+                "id": 4
+              }
+            ]
+
+  /predict:
+    post:
+      tags:
+      - "predict"
+      summary: "Predict probability for each classes"
+      description: "We predict 3 probability for a new article to be sell in one of the target
+                    target classe among very fast sell, normal sell or slowly sell"
+      produces:
+      - "application/json"
+
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: '#/definitions/predict'
+
+      responses:
+        "200":
+          description: "successfully predicted"
+          schema:
+            type: "object"
+            example: {
+              "0": 0.5466780245859189,
+              "1": 0.1795884056669291,
+              "2": 0.27373356974715213
+            }
+
+definitions:
+  predict:
+    type: "object"
+    properties:
+      nb_images:
+        type: "integer"
+        format: "int64"
+
+      longueur_image:
+        type: "integer"
+        format: "int64"
+      largeur_image:
+        type: "integer"
+        format: "int64"
+      description_produit:
+        type: "string"
+        format: "string"
+      annee:
+        type: "integer"
+        format: "int64"
+
+      couleur:
+        type: "string"
+        format: "string"
+
+      prix:
+        type: "integer"
+        format: "int64"
+
+      categorie:
+        type: "string"
+        format: "string"
+
+      nom_produit:
+        type: "string"
+        format: "string"
