@@ -16,10 +16,10 @@ engine = db_service.engine
 
 def reset_db_to_after_all_migration(engine_):
     Prediction.__table__.drop(engine_)
-    Prediction.__table__.create(engine_)
-
     Snapshot.__table__.drop(engine_)
+
     Snapshot.__table__.create(engine_)
+    Prediction.__table__.create(engine_)
     return
 
 
