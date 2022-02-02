@@ -3,7 +3,7 @@ version: '2.2'
 
 services:
 
-  database-postgres:
+  database-postgres-test:
     image: postgres:14.1
     environment:
       POSTGRES_USER: test
@@ -20,8 +20,8 @@ services:
       dockerfile: test.Dockerfile
       context: .
     environment:
-      DATABASE: postgresql://test:test@database-postgres/test
+      DATABASE: postgresql://test:test@database-postgres-test/test
 
     depends_on:
-      database-postgres:
+      database-postgres-test:
         condition: service_healthy
