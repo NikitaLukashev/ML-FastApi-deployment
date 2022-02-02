@@ -21,8 +21,11 @@ the score is not important for this test.
 
 # Code description
 Our web app follow MVC pattern. 
+
 The folder src/model contains relational data model.
+
 The folder src/controller contains data processing operation during training and prediction.
+
 The folder src/common contains additional nice to have like a logger, db services, and config which loads
 environnement var and secret from .env file.
 
@@ -56,10 +59,11 @@ Deploy the docker-compose.yml file, it will instanciate postgresql@14.1 and depl
 the web app.
 Open a new terminal in the project root and run
 ```shellscript
+cp .env.example .env
 docker-compose -f docker-compose.yml up
 ```
 
-An ML model is automatically trained, you can start interacting with the api
+An ML model is automatically trained, you can start interacting with the api on  http://0.0.0.0:5001
 
 # Database modelisation
 Our database contains 3 tables, it's modeled for the purpose of:
@@ -81,3 +85,6 @@ snapshots table. And so retrieve all prediction by model and start AB test.
  - Refactor dockerfile and docker compose to make build faster
  - use pipenv and pyenv instead of pip
  - add more test
+ - use async await syntaxe in asynchronious train call
+ - add docstring
+ - add typing

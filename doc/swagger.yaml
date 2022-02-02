@@ -7,7 +7,7 @@ info:
     email: "nloukachev@gmail.com"
   license:
     name: "Apache 2.0"
-    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+    url: "https://www.apache.org/licenses/LICENSE-2.0.html"
 tags:
 - name: "algorithm"
   description: "Everything about your ml algorithm"
@@ -19,7 +19,6 @@ tags:
   description: "Predict probability score for each classes of the target"
 
 schemes:
-- "https"
 - "http"
 paths:
   /state:
@@ -31,11 +30,8 @@ paths:
                     If a retrain occurs, the algorithm state is increased by 1.
                     It's needed to monitor which algorithm respond into
                      production and compare result in A/B test with next or previous algorithm"
-      consumes:
-      - "application/json"
       produces:
-      - "application/json"
-      parameters:
+      - "string"
       responses:
         "200":
           description: "successful trained a new algorithm"
@@ -54,12 +50,11 @@ paths:
                     new data"
       produces:
       - "application/json"
-      parameters:
       responses:
         "200":
           description: "successfully trained a new algorithm"
           schema:
-            type: "array"
+            type: "object"
             example: [
               {
                 "created_at": "Tue, 01 Feb 2022 23:54:08 GMT",
@@ -74,6 +69,8 @@ paths:
       summary: "Predict probability for each classes"
       description: "We predict 3 probability for a new article to be sell in one of the target
                     target classe among very fast sell, normal sell or slowly sell"
+      consumes:
+        - "application/json"
       produces:
       - "application/json"
 
@@ -98,36 +95,63 @@ paths:
 definitions:
   predict:
     type: "object"
+    required: # List the required properties here
+      - nb_images
+      - longueur_image
+      - largeur_image
+      - description_produit
+      - annee
+      - couleur
+      - prix
+      - categorie
+      - nom_produit
+
+
     properties:
       nb_images:
         type: "integer"
         format: "int64"
+        example: 0
+
 
       longueur_image:
         type: "integer"
         format: "int64"
+        example: 0
+
       largeur_image:
         type: "integer"
         format: "int64"
+        example: 0
+
       description_produit:
         type: "string"
         format: "string"
+        example: "description"
+
       annee:
         type: "integer"
         format: "int64"
+        example: 0
 
       couleur:
         type: "string"
         format: "string"
+        example: "couleur"
 
       prix:
         type: "integer"
         format: "int64"
+        example: 0
+
 
       categorie:
         type: "string"
         format: "string"
+        example: "categorie"
+
 
       nom_produit:
         type: "string"
         format: "string"
+        example: "nom_produit"
