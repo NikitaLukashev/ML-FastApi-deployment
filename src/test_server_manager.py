@@ -14,7 +14,12 @@ db_session = db_service.db_session
 engine = db_service.engine
 
 
-def reset_db_to_after_all_migration(engine_):
+def reset_db_to_after_all_migration(engine_) -> None:
+    """
+    Create  base table after all migrations
+    :param engine_:
+    :return:
+    """
     Prediction.__table__.drop(engine_)
     Snapshot.__table__.drop(engine_)
 

@@ -7,7 +7,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 def load_configuration(config: Dict[str, str]) -> Dict[str, str]:
+    """
+
+    :rtype: dict
+    :param config: dict of configuration variable loaded from dot env or not
+    :return: dict of configuration variable
+    """
     return config
 
 

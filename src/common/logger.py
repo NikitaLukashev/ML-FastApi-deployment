@@ -8,7 +8,14 @@ class LogFormatter(logging.Formatter):
         super().__init__(**kwargs)
         self._attr = attr
 
-    def format(self, record: logging.LogRecord):
+    def format(self, record: logging.LogRecord) -> object:
+        """
+        Format a log message
+
+        :rtype: object
+        :param record: logging.LogRecord a record of log
+        :return: a formatted log
+        """
         _record = {
             attr_name: record.__dict__[attr_name]
             for attr_name in record.__dict__
@@ -31,7 +38,13 @@ class LogFormatter(logging.Formatter):
         return '{timestamp} - {level: <8} - {name} - "{message}"'.format(**_record)
 
 
-def logging_setup(name):
+def logging_setup(name) -> object:
+    """
+    Create a logger
+
+    :param name: a str of the logger name
+    :return: a logger
+    """
     logger = logging.getLogger(name)
 
     # Text Formatter

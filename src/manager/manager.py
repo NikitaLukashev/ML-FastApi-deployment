@@ -21,7 +21,11 @@ class Manager:
         self.algorithm_id = 0
         self._load_snapshot_if_exists()
 
-    def _load_snapshot_if_exists(self):
+    def _load_snapshot_if_exists(self) -> None:
+        """
+        Load an existing model from the db if db contains one
+        :return: None
+        """
         snapshot = self.db_session.query(Snapshot).order_by(Snapshot.created_at.desc()).first()
         self.logger.info('Checking for a pretrained ml model into db')
         if snapshot is not None:
@@ -33,7 +37,11 @@ class Manager:
             self.algorithm_id = self.db_session.query(Snapshot.id).first()[0]
             self.logger.info('Training raw ml model on full dataset')
 
-    def predict(self, payload):
+    def predict(self, payload) -> dict:
+        """
+        Predict on the incoming payload
+        :return: dict with score for each class
+        """
         self.logger.info('Predicting on new resource')
 
         created_at = datetime.now()
@@ -67,7 +75,11 @@ class Manager:
 
         return res_json
 
-    def train(self):
+    def train(self) -> dict:
+        """
+        Train the ml model on the incoming payload
+        :return: a dict with id of the trained model and the date of training
+        """
         self.logger.info('Training model on full dataset')
 
         query = '''select * from catalog'''
@@ -93,7 +105,12 @@ class Manager:
         self.algorithm = clf
         return {'id': snapshot.id, 'created_at': snapshot.created_at}
 
-    def get_state(self):
+    def get_state(self) -> str:
+        """
+        Retrieve the internal state of the last model
+
+        :return: a string with the algorythm version
+        """
         self.logger.info('Retrieving current model id')
         return f'algorythm version {self.algorithm_id}'
 

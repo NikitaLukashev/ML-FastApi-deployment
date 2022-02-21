@@ -5,8 +5,19 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 class Processor:
 
     @staticmethod
-    def process_predict(payload, couleur_map, categorie_map, description_tfidf, nom_tfidf):
+    def process_predict(payload, couleur_map, categorie_map, description_tfidf, nom_tfidf) -> pd.DataFrame:
+        """
+        Main controller to process a payload during prediction with the same features
+         transformation as in train
 
+        :rtype: pd.DataFrame
+        :param payload: dict of icomming payload
+        :param couleur_map: dict of the couleur field mapping
+        :param categorie_map: dict of the categorie field mapping
+        :param description_tfidf: a tf-idf trained object on description field
+        :param nom_tfidf: a tf-idf trained object on nom field
+        :return: a dataframe of pre-processed field like in train for ml prediction
+        """
         resource = pd.DataFrame(payload, index=[0])
 
         ###################################################################
@@ -37,8 +48,25 @@ class Processor:
         return df
 
     @staticmethod
-    def process_train(data: pd.DataFrame):
-        def get_tfidf_vectorizer(df, field, vectorizer):
+    def process_train(data: pd.DataFrame) -> [pd.DataFrame, pd.Series, dict, object, object]:
+        """
+        The main controller to preprocess initial data from the db into a
+        dataframe ready for maching learning stuff
+
+        :rtype: [pd.DataFrame, pd.Series, dict, object, object]
+        :param data: initial dataframe from the db
+        :return: a list of final dataframe, target, a map of categorie to int for categorical column,
+         a trained tf-idf for the 2 text column
+        """
+        def get_tfidf_vectorizer(df: pd.DataFrame, field: str, vectorizer: object) -> [pd.DataFrame, object]:
+            """
+            Create a trained tf-idf vectorizer for a textual field
+
+            :param df: initial dataframe
+            :param field: str column for the textual data field
+            :param vectorizer: an object of tfi-idf
+            :return: a dataframe with tf-idf column and the trained vectorizer
+            """
             vec = vectorizer.fit(df[field])
             tfidf_ = vectorizer.fit_transform(df[field])
             tfidf_cols = vectorizer.get_feature_names_out()
@@ -46,7 +74,14 @@ class Processor:
             df = pd.concat([df, temp], axis=1)
             return df, vec
 
-        def map_categorie(df):
+        def map_categorie(df: pd.DataFrame) -> [pd.DataFrame, dict]:
+            """
+            Map categorical data column into integer data column
+
+            :rtype: object
+            :param df: initial dataframe
+            :return: a dataframe with encoded column and the encoding dict
+            """
             my_map_reversed = dict()
             for col in ['couleur', 'categorie']:
                 my_map = dict(enumerate(df[col].astype('category').cat.categories))
