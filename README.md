@@ -1,1 +1,1 @@
-Go to doc/
+Go to doc/ folder
