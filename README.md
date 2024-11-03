@@ -80,11 +80,8 @@ You can bind ml model from snapshots table and prediction from predictions
 table by foreign key model_id from predictions table and primary key id from 
 snapshots table. And so retrieve all prediction by model and start AB test.
 
-# To Improve
- - Add a crossvalidation score for each model into the db
- - Refactor dockerfile and docker compose to make build faster
+# Todo
+ - refactor dockerfile and docker compose to make build faster
  - use pipenv and pyenv instead of pip
- - add more test
- - use async await syntaxe in asynchronious train call
  - add docstring
  - add typing
