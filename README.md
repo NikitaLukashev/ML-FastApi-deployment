@@ -19,6 +19,9 @@ We train a supervised RandomForestClassifier on the full dataset and save it int
 I don't create complexe feature, grid search, pamameter optimisation, as 
 the score is not important for this test.
 
+# API description
+Endpoint are described in swagger.yml
+
 # Code description
 Our web app follow MVC pattern. 
 
@@ -29,7 +32,7 @@ The folder src/controller contains data processing operation during training and
 The folder src/common contains additional nice to have like a logger, db services, and config which loads
 environnement var and secret from .env file.
 
-The doc/ folder contains readme.md and a swagger.yml file for api description.
+The readme.md and swagger.yml file for api description.
 
 The data/ folder contains initial train dataset, it's inserted into the db after first migration
 
@@ -63,7 +66,7 @@ cp .env.example .env
 docker-compose -f docker-compose.yml up
 ```
 
-An ML model is automatically trained, you can start interacting with the api on  http://0.0.0.0:5001
+An ML model is automatically trained, you can start interacting with the api on http://0.0.0.0:5001
 
 # Database modelisation
 Our database contains 3 tables, it's modeled for the purpose of:
